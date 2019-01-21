@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: javagda17-pizzeria-auth
+  cloud:
+    enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8010/eureka
