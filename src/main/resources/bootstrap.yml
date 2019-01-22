@@ -1,6 +1,6 @@
 spring:
   application:
-    name: javagda17-pizzeria-auth
+    name: progresser_demo
   cloud:
     enabled: true
 eureka:

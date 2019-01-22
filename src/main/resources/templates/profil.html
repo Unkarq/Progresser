@@ -1,0 +1,49 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/profilForm}" method="post">
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>
+                <input type="text" name="appUserName">
+            </td>
+        </tr>
+
+        <tr>
+            <td>Surname</td>
+            <td>
+                <input type="text" name="appUserSurname">
+            </td>
+        </tr>
+        <tr>
+            <td>City</td>
+            <td>
+                <input type="text" name="appUserCity">
+            </td>
+        </tr>
+        <tr>
+            <td>Gander</td>
+            <td>
+                <select name="gander">
+                    <option th:each="opcja : ${typOpcje}" th:value="${opcja}" th:text="${opcja}"></option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" name="submit" value="Submit">
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
