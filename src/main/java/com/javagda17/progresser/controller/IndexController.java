@@ -31,12 +31,16 @@ public class IndexController {
     public String submitRegisterForm(String username,
                                      String password,
                                      String passwordConfirm,
+                                     String email,
                                      boolean trener) {
         if(!password.equals(passwordConfirm)){
             return "redirect:/register?error=Passwords do not match";
         }
-        boolean result = appUserService.tryRegister(username,password,trener);
+        boolean result = appUserService.tryRegister(username,password,email,trener);
         return "redirect:/login";
     }
+
+   @GetMapping("/profil")
+   public String getProfil(){return "profil";}
 
 }

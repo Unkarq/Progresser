@@ -1,9 +1,6 @@
 package com.javagda17.progresser.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -16,6 +13,8 @@ import java.util.Set;
 @Entity
 @Data
 @Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class AppUser {
@@ -33,10 +32,8 @@ public class AppUser {
     private String gander;
 
     private String city;
-    private LocalDateTime creationDate;
-
     private String specialization;
-
+    private LocalDateTime creationDate;
     @Email
     private String email;
 

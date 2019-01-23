@@ -23,12 +23,6 @@
             </td>
         </tr>
         <tr>
-            <td>City</td>
-            <td>
-                <input type="text" name="appUserCity">
-            </td>
-        </tr>
-        <tr>
             <td>Gander</td>
             <td>
                 <select name="gander">
@@ -36,7 +30,26 @@
                 </select>
             </td>
         </tr>
-
+        <tr>
+            <td>Specialization</td>
+            <td>
+                <select name="spec">
+                    <option th:each="opcja : ${typOpcje}" th:value="${opcja}" th:text="${opcja}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>City</td>
+            <td>
+                <input type="text" name="appUserCity">
+            </td>
+        </tr>
+        <tr>
+            <td>PhoneNumber</td>
+            <td>
+                <input type="text" name="appUserPhone">
+            </td>
+        </tr>
         <tr>
             <td></td>
             <td>

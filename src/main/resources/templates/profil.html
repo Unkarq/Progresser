@@ -3,47 +3,78 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:include="template :: scripts_header"/>
+    <title>Profil</title>
 </head>
 <body>
-<form th:action="@{/profilForm}" method="post">
-    <table>
-        <tr>
-            <td>Name</td>
-            <td>
-                <input type="text" name="appUserName">
-            </td>
-        </tr>
+<th:block th:include="template :: navigator"/>
+    <!------ Include the above in your HEAD tag  ---------->
 
-        <tr>
-            <td>Surname</td>
-            <td>
-                <input type="text" name="appUserSurname">
-            </td>
-        </tr>
-        <tr>
-            <td>City</td>
-            <td>
-                <input type="text" name="appUserCity">
-            </td>
-        </tr>
-        <tr>
-            <td>Gander</td>
-            <td>
-                <select name="gander">
-                    <option th:each="opcja : ${typOpcje}" th:value="${opcja}" th:text="${opcja}"></option>
-                </select>
-            </td>
-        </tr>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" />
+                        </div>
+                        <div class="col-sm-6 col-md-8">
+                            <h4>
+                                //todo: autiryzacja(ROLE_USER)                  Username  </h4>
 
-        <tr>
-            <td></td>
-            <td>
-                <input type="submit" name="submit" value="Submit">
-            </td>
-        </tr>
-    </table>
+                            <p>
+                                <i class="glyphicon glyphicon-envelope"></i>  //todo: email
+
+                                </tr>
+                                <br />
+                                <i class="glyphicon glyphicon"></i> //todo: name </p>
+                                <br />
+                                <i class="glyphicon glyphicon"></i> //todo: surname</p>
+                                <br />
+                                <i class="glyphicon glyphicon"></i> //todo: gander</p>
+                                <br />
+                                <i class="glyphicon glyphicon"></i> //todo: specialization</p>
+                                <br />
+                                <i class="glyphicon glyphicon"></i> //todo: city</p>
+                                <br />
+                                <i class="glyphicon glyphicon"></i> //todo: phonenumber</p>
+                                <br />
+                                <i class="glyphicon glyphicon"></i> //todo: rola(user)  </p>
+                                <br />
+                                <i class="glyphicon glyphicon"></i> //todo: creationtime  </p>
+
+
+
+
+
+
+                                        <a th:href="@{'/removeWpis?wpisId=' + ${checklist.getId()}}">Remove</a>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{'/edit/' + ${checklist.getId()}}">Edytuj</a>
+                                    </td>
+
+
+
+
+
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
+<th:block th:include="template :: scripts_footer"/>
 </body>
 </html>
