@@ -25,14 +25,19 @@ public class AppUserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public boolean tryRegister(String username, String password) {
+    public boolean tryRegister(String username, String password,boolean trener) {
 
 
         AppUser appUser = new AppUser();
         appUser.setUsername(username);
         appUser.setPassword(bCryptPasswordEncoder.encode(password));
-        appUser.getUserRoles().add((UserRole) userRoleService.getUserRole());
+        if(trener=true){
+            appUser.getUserRoles().add((UserRole) userRoleService.getUserRole2());
+            appUser.getUserRoles().add((UserRole) userRoleService.getUserRole());
+        }else {
 
+            appUser.getUserRoles().add((UserRole) userRoleService.getUserRole());
+        }
         try {
 
 

@@ -30,11 +30,12 @@ public class IndexController {
     @PostMapping("/register")
     public String submitRegisterForm(String username,
                                      String password,
-                                     String passwordConfirm) {
+                                     String passwordConfirm,
+                                     boolean trener) {
         if(!password.equals(passwordConfirm)){
             return "redirect:/register?error=Passwords do not match";
         }
-        boolean result = appUserService.tryRegister(username,password);
+        boolean result = appUserService.tryRegister(username,password,trener);
         return "redirect:/login";
     }
 

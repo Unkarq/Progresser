@@ -20,5 +20,15 @@ public class UserRoleService {
         }
         throw new DataIntegrityViolationException("USER_ROLE should exist in database.");
     }
+
+    public Object getUserRole2() {
+        Optional<Object> optionalUserRole = userRoleRepository.findByName("ROLE_TRENER");
+
+        if (optionalUserRole.isPresent()) {
+            return optionalUserRole.get();
+        }
+        throw new DataIntegrityViolationException("TRENER_ROLE should exist in database.");
+    }
+
 }
 
