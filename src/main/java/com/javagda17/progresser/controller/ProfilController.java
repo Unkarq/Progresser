@@ -12,7 +12,7 @@ import java.util.Optional;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
-@RequestMapping("/profil/")
+@RequestMapping("/profil")
 public class ProfilController {
 @Autowired
 private AppUserService appUserService;
@@ -27,17 +27,17 @@ private AppUserService appUserService;
     public String getEditForm(Model model, @PathVariable(name = "identifier") Long id) {
         Optional<AppUser> appUserOptional = appUserService.getAppUserById(id);
         if (appUserOptional.isPresent()) {
-            model.addAttribute("tweetToEdit", appUserOptional.get());
-            model.addAttribute("wpisyList",appUserService.getAllInfo());
+            model.addAttribute("", appUserOptional.get());
+            model.addAttribute("",appUserService.getAllInfo());
 
             return "item";
         }
 
-        return "redirect:/checklist";
+        return "redirect:/";
     }
 
 
-    @RequestMapping(value = "/profil/{identifier}", method = POST)
+    @RequestMapping(value = "/profill/{identifier}", method = POST)
     public String getEditForm(Model model, @PathVariable(name = "identifier") Long id,
                               AppUser appUser) {
         appUserService.updateAppUser(appUser);
