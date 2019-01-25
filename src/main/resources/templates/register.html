@@ -27,12 +27,41 @@
         </div>
 
         <div class="form-group">
-            <label for="email">Email</label>
-            <input class="form-control" type="email" id="email" name="email">
+            <label for="name">Name</label>
+            <input class="form-control" type="name" id="name" name="name">
+        </div>
+        <div class="form-group">
+            <label for="surname">Surname</label>
+            <input class="form-control" type="surname" id="surname" name="surname">
+        </div>
+        <div class="form-group">
+
+            <select name="gender">
+                <option th:each="opcja : ${TypGender}" th:value="${opcja}" th:text="${opcja}"></option>
+            </select>
+
+        </div>
+        <div class="form-group">
+        <select name="specialization">
+            <option th:each="opcja : ${TypSpec}" th:value="${opcja}" th:text="${opcja}"></option>
+        </select>
         </div>
 
         <div class="form-group">
-        <label><input type="checkbox" name="trener"> Konto Trenera</label>
+            <label for="email">Email</label>
+            <input class="form-control" type="email" id="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="city">City</label>
+            <input class="form-control" type="city" id="city" name="city">
+        </div>
+        <div class="form-group">
+            <label for="phonenumber">Phonenumber</label>
+            <input class="form-control" type="phonenumber" id="phonenumber" name="phonenumber">
+        </div>
+
+        <div class="form-group">
+            <label><input type="checkbox" name="trener"> Konto Trenera</label>
         </div>
         <button class="btn btn-primary" type="submit">Register</button>
     </form>

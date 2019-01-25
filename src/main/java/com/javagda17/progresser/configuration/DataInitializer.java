@@ -1,8 +1,10 @@
 package com.javagda17.progresser.configuration;
 
 import com.javagda17.progresser.model.AppUser;
+import com.javagda17.progresser.model.Specialization;
 import com.javagda17.progresser.model.UserRole;
 import com.javagda17.progresser.repository.AppUserRepository;
+
 import com.javagda17.progresser.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -17,6 +19,8 @@ import java.util.Set;
 @Component
 public class DataInitializer implements
         ApplicationListener<ContextRefreshedEvent> {
+//    @Autowired
+//    private SpecializationRepository specializationRepository;
 
     @Autowired
     private AppUserRepository appUserRepository;
@@ -31,6 +35,7 @@ public class DataInitializer implements
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         checkAndLoadRoles();
         checkAndLoadUsers();
+
     }
 
     private void checkAndLoadUsers() {
@@ -86,6 +91,20 @@ public class DataInitializer implements
             createRole("ROLE_TRENER");
         }
     }
+//    private void checkAndLoadSpec() {
+//        if (!checkSpec("CALISTHENIC")) {
+//            createSpec("CALISTHENIC");
+//        }
+//        if (!checkSpec("FITNES")) {
+//            createSpec("FITNES");
+//        }
+//        if (!checkSpec("STRETCHING")) {
+//            createSpec("STRETCHING");
+//        }
+//        if (!checkSpec("WEIGHTLIFTING")) {
+//            createSpec("WEIGHTLIFTING");
+//        }
+//    }
 
 
     private void createRole(String role) {
@@ -96,6 +115,18 @@ public class DataInitializer implements
     private boolean checkRole(String role) {
         return userRoleRepository.findByName(role).isPresent();
     }
+    }
 
 
-}
+//
+//    private void createSpec(String spec) {
+//        Specialization createdSpec = new Specialization(null, spec);
+//        specializationRepository.saveAndFlush(createdSpec);
+//    }
+//
+//
+//      private boolean checkSpec(String spec) {
+//          return specializationRepository.findByName(spec).isPresent();
+//
+//      }
+//

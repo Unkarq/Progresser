@@ -2,7 +2,7 @@ spring:
   datasource:
     username: root
     password: srapa101
-    url: jdbc:mysql://localhost:3306/progresser?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/progreser?serverTimezone=UTC
   jpa:
     hibernate:
       ddl-auto: update

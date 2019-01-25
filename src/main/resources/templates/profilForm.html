@@ -7,12 +7,14 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/profilForm}" method="post">
+
+<!--<form th:action="@{'/profil/form' + ${AppUserToEdit.getId()}}" method="post" th:object="${AppUserToEdit}">-->
+
     <table>
         <tr>
             <td>Name</td>
             <td>
-                <input type="text" name="appUserName">
+                <input type="text" name="appuserName">
             </td>
         </tr>
 
@@ -23,18 +25,24 @@
             </td>
         </tr>
         <tr>
-            <td>Gander</td>
+            <td>Gender</td>
             <td>
-                <select name="gander">
-                    <option th:each="opcja : ${typOpcje}" th:value="${opcja}" th:text="${opcja}"></option>
+                <select name="gender">
+                    <option th:each="opcja : ${TypGender}" th:value="${opcja}" th:text="${opcja}"></option>
                 </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>
+                <input type="text" name="email">
             </td>
         </tr>
         <tr>
             <td>Specialization</td>
             <td>
-                <select name="spec">
-                    <option th:each="opcja : ${typOpcje}" th:value="${opcja}" th:text="${opcja}"></option>
+                <select name="specialization">
+                    <option th:each="opcja : ${TypSpec}" th:value="${opcja}" th:text="${opcja}"></option>
                 </select>
             </td>
         </tr>

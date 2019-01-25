@@ -1,10 +1,14 @@
 package com.javagda17.progresser.service;
 
 import com.javagda17.progresser.model.AppUser;
+import com.javagda17.progresser.model.Gender;
+import com.javagda17.progresser.model.Specialization;
 import com.javagda17.progresser.model.UserRole;
 import com.javagda17.progresser.repository.AppUserRepository;
 import com.javagda17.progresser.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +30,17 @@ public class AppUserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public boolean tryRegister(String username, String password, String email,boolean trener) {
+    public boolean tryRegister(String username,
+                               String password,
+                               String passwordConfirm,
+                               String name,
+                               String Surname,
+                               String email,
+                               Gender gender,
+                               Specialization specialization,
+                               String city,
+                               String phonenumber,
+                               boolean trener) {
 
 
         AppUser appUser = new AppUser();
@@ -34,6 +48,12 @@ public class AppUserService {
         appUser.setPassword(bCryptPasswordEncoder.encode(password));
         appUser.setEmail(email);
         appUser.setCreationDate(LocalDateTime.now());
+        appUser.setPhoneNumber(phonenumber);
+        appUser.setSurname(Surname);
+        appUser.setName(name);
+        appUser.setGender(gender);
+        appUser.setSpecialization(specialization);
+        appUser.setCity(city);
         if(trener==true){
             appUser.getUserRoles().add((UserRole) userRoleService.getUserRole());
             appUser.getUserRoles().add((UserRole) userRoleService.getUserRole2());
@@ -63,7 +83,7 @@ public class AppUserService {
             appUserFromDB.setUserRoles(appUser.getUserRoles());
             appUserFromDB.setCity(appUser.getCity());
             appUserFromDB.setPhoneNumber(appUser.getPhoneNumber());
-            appUserFromDB.setGander(appUser.getGander());
+            appUserFromDB.setGender(appUser.getGender());
             appUserFromDB.setSpecialization(appUser.getSpecialization());
 
 
@@ -79,13 +99,16 @@ public class AppUserService {
     }
 
 
+
+
+
     public List<AppUser> getAllUsers() {
         return appUserRepository.findAll();
     }
 
 
     public void remove(Long appUserid) {
-        appUserRepository.findById(appUserid);
+        appUserRepository.deleteById(appUserid);
     }
 
 
@@ -93,4 +116,14 @@ public class AppUserService {
 
         return null;
     }
+
+    public void updateAppUser(String appuserName, String appUserSurname, Gender gender, String email, Specialization specialization, String appUserCity, String appUserPhone) {
+    }
+
+    public AppUser getCurrentUser() {
+        Optional<AppUser> currentUser = appUserRepository.findByUsername(((User)
+                SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+        return currentUser.orElse(null);
+    }
+
 }

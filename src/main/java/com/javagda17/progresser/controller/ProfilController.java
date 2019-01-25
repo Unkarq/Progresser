@@ -1,12 +1,16 @@
 package com.javagda17.progresser.controller;
 
 import com.javagda17.progresser.model.AppUser;
+import com.javagda17.progresser.model.Gender;
+import com.javagda17.progresser.model.Specialization;
 import com.javagda17.progresser.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -14,8 +18,37 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Controller
 @RequestMapping("/profil")
 public class ProfilController {
-@Autowired
-private AppUserService appUserService;
+    @Autowired
+    private AppUserService appUserService;
+    @GetMapping(value = "/form/{identifier}")
+    public String getProfilFormPage(Model model,@PathVariable(name = "identifier") Long id) {
+        Optional<AppUser> optionalAppUser = appUserService.getAppUserById(id);
+        if (optionalAppUser.isPresent()) {
+            model.addAttribute("curentUser", optionalAppUser.get());
+            model.addAttribute("TypGender", Gender.values());
+
+            return "profilForm";
+        }
+        return "redirect:/profil";
+
+    }
+
+    @PostMapping("/form")
+    public String submitEditedProfilForm(String appuserName,
+                                         String appUserSurname,
+                                         Gender gender,
+                                         String email,
+                                         Specialization specialization,
+                                         String appUserCity,
+                                         String appUserPhone
+    ) {
+
+
+        appUserService.updateAppUser(appuserName, appUserSurname, gender, email, specialization, appUserCity, appUserPhone);
+        return "redirect:/profil";
+
+    }
+
 
 
     @GetMapping("/profil")
@@ -23,17 +56,19 @@ private AppUserService appUserService;
         return "profil";
     }
 
-    @RequestMapping(value = "/edit/{identifier}", method = RequestMethod.GET)
+    @RequestMapping(value = "/profil/{identifier}", method = RequestMethod.GET)
     public String getEditForm(Model model, @PathVariable(name = "identifier") Long id) {
         Optional<AppUser> appUserOptional = appUserService.getAppUserById(id);
         if (appUserOptional.isPresent()) {
-            model.addAttribute("", appUserOptional.get());
-            model.addAttribute("",appUserService.getAllInfo());
+            model.addAttribute("editAppUser", appUserOptional.get());
 
-            return "item";
+
+            return "profilForm";
         }
 
         return "redirect:/";
+
+
     }
 
 
@@ -46,9 +81,12 @@ private AppUserService appUserService;
     }
 
     @GetMapping("/removeProfil")
-    public String removeFromProfil(@RequestParam(name = "appUserId") Long appUserid){
+    public String removeFromProfil(@RequestParam(name = "appUserId") Long appUserid) {
         appUserService.remove(appUserid);
         return "/pr";
     }
+
+
+
 
 }

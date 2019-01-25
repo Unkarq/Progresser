@@ -1,8 +1,8 @@
 package com.javagda17.progresser.model;
 
-public enum  Gander {
+public enum  Gender {
 
-    WOMAN,MAN;
+    FEMALE,MALE;
 
 
 }

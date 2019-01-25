@@ -29,36 +29,23 @@ public class AppUser {
 
     private String name;
     private String surname;
-    private String gander;
+    @Enumerated(value = EnumType.STRING)
+    private Gender gender;
 
     private String city;
-    private String specialization;
+    @Enumerated(value = EnumType.STRING)
+    private Specialization specialization;
     private LocalDateTime creationDate;
     @Email
     private String email;
 
     private String phoneNumber;
 
+
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRole> userRoles = new HashSet<>();
 
-//    @OneToMany
-//    private Set<AppUser> proteges;
-//    //Todo:Konto Uzytkownik
-    //login
-    //haslo
-    //płeć
-    //imie
-    //doswiadczenie
-    //nazwisko
-    //miasto
-    //data zalozenia konta
-    //plan treningowy
-    //rodzaj konta (uzytkownik/trener/admin)
-    //zdjecie/awatar - nice to have
-    //waga
-    //wzrost
-    //zalecana dieta
 
 
 

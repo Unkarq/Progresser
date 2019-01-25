@@ -20,7 +20,7 @@ public class AdminUserController {
 
 
     //admin/users
-    @GetMapping("/users")
+    @GetMapping("/userlist")
     public String getUserList(Model model) {
         List<AppUser> users = appUserService.getAllUsers();
 
