@@ -6,8 +6,6 @@ import com.javagda17.progresser.model.Specialization;
 import com.javagda17.progresser.model.UserRole;
 import com.javagda17.progresser.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -71,11 +69,11 @@ public class AppUserService {
         return true;
     }
 
-    public boolean updateAppUser(AppUser appUser) {
+    public Optional<AppUser> updateAppUser(AppUser appUser) {
         Optional<AppUser> appUserOptional = getAppUserById(appUser.getId());
         if (appUserOptional.isPresent()) {
             AppUser appUserFromDB = appUserOptional.get();
-
+            appUserFromDB.setUsername(appUser.getUsername());
             appUserFromDB.setName(appUser.getName());
             appUserFromDB.setSurname(appUser.getSurname());
             appUserFromDB.setEmail(appUser.getEmail());
@@ -87,9 +85,7 @@ public class AppUserService {
 
 
             appUserRepository.saveAndFlush(appUserFromDB);
-            return true;
-        }
-        return false;
+        } return
     }
 
     public Optional<AppUser> getAppUserById(Long id) {
@@ -113,22 +109,10 @@ public class AppUserService {
 
 
 
-    public void updateAppUser(String appuserName, String appUserSurname, Gender gender, String email, Specialization specialization, String appUserCity, String appUserPhone) {
-    }
-
-//    public AppUser getCurrentUser() {
-//        Optional<AppUser> currentUser = appUserRepository.findByUsername(((User)
-//                SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
-//        return currentUser.orElse(null);
-//    }
 
     public Optional<AppUser> findByUsername(String username) {
         return appUserRepository.findByUsername(username);
     }
-
-//    public List<AppUser> getCurrentUserProfil() {
-//        return appUserRepository.findByUsername();
-//    }
 
 
 

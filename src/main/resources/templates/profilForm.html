@@ -8,20 +8,20 @@
 </head>
 <body>
 
-<!--<form th:action="@{'/profil/form' + ${AppUserToEdit.getId()}}" method="post" th:object="${AppUserToEdit}">-->
+<form th:action="@{/profilForm}" method="post" t>
 
     <table>
         <tr>
             <td>Name</td>
             <td>
-                <input type="text" name="appuserName">
+                <input type="text" name="name">
             </td>
         </tr>
 
         <tr>
             <td>Surname</td>
             <td>
-                <input type="text" name="appUserSurname">
+                <input type="text" name="surname">
             </td>
         </tr>
         <tr>
@@ -49,13 +49,13 @@
         <tr>
             <td>City</td>
             <td>
-                <input type="text" name="appUserCity">
+                <input type="text" name="city">
             </td>
         </tr>
         <tr>
             <td>PhoneNumber</td>
             <td>
-                <input type="text" name="appUserPhone">
+                <input type="text" name="phonenumber">
             </td>
         </tr>
         <tr>
