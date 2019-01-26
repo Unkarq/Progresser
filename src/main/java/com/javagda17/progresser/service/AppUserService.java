@@ -5,7 +5,6 @@ import com.javagda17.progresser.model.Gender;
 import com.javagda17.progresser.model.Specialization;
 import com.javagda17.progresser.model.UserRole;
 import com.javagda17.progresser.repository.AppUserRepository;
-import com.javagda17.progresser.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -14,13 +13,13 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class AppUserService {
+
+
     @Autowired
     private AppUserRepository appUserRepository;
 
@@ -112,18 +111,25 @@ public class AppUserService {
     }
 
 
-    public Object getAllInfo() {
 
-        return null;
-    }
 
     public void updateAppUser(String appuserName, String appUserSurname, Gender gender, String email, Specialization specialization, String appUserCity, String appUserPhone) {
     }
 
-    public AppUser getCurrentUser() {
-        Optional<AppUser> currentUser = appUserRepository.findByUsername(((User)
-                SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
-        return currentUser.orElse(null);
+//    public AppUser getCurrentUser() {
+//        Optional<AppUser> currentUser = appUserRepository.findByUsername(((User)
+//                SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+//        return currentUser.orElse(null);
+//    }
+
+    public Optional<AppUser> findByUsername(String username) {
+        return appUserRepository.findByUsername(username);
     }
+
+//    public List<AppUser> getCurrentUserProfil() {
+//        return appUserRepository.findByUsername();
+//    }
+
+
 
 }

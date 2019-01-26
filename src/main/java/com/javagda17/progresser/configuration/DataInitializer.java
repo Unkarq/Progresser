@@ -19,8 +19,8 @@ import java.util.Set;
 @Component
 public class DataInitializer implements
         ApplicationListener<ContextRefreshedEvent> {
-//    @Autowired
-//    private SpecializationRepository specializationRepository;
+
+
 
     @Autowired
     private AppUserRepository appUserRepository;
