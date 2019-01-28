@@ -46,37 +46,32 @@ public class AppUserController {
     }
 
 
-
-@GetMapping("/profil")
-public String getProfilFormToEdid(Model model){
-    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    Optional<AppUser> appUser = appUserService.findByUsername(user.getUsername());
-    AppUser optionaAppuser = appUser.get();
-    model.addAttribute("TypGender", Gender.values());
-    model.addAttribute("TypSpec", Specialization.values());
-
-    return "profilForm";
-
-}
-
-    @PostMapping("/profilForm")
-    public String updateProfil (        String username,
-                                        String name,
-                                        String surname,
-                                        Gender gender,
-                                        String email,
-                                        Specialization specialization,
-                                        String city,
-                                        String phonenumber){
+    @GetMapping("/editProfil")
+    public String getProfilFormToEdid(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<AppUser> appUser = appUserService.findByUsername(user.getUsername());
         AppUser optionaAppuser = appUser.get();
-        appUserService.updateAppUser(optionaAppuser);
-    return "profil";
+        model.addAttribute("TypGender", Gender.values());
+        model.addAttribute("TypSpec", Specialization.values());
+
+        return "profil";
+
+    }
+
+    @PostMapping("/editProfil")
+    public String updateProfil(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<AppUser> appUser = appUserService.findByUsername(user.getUsername());
+        AppUser optionaAppuser = appUser.get();
+
+
+
+    }
+
 
     }
 
 
 
 
-}
+

@@ -8,9 +8,15 @@
 </head>
 <body>
 
-<form th:action="@{/profilForm}" method="post" t>
+<form th:action="@{/editProfil}" method="post" t>
 
     <table>
+        <tr>
+            <td>Username</td>
+            <td>
+                <input type="text" name="username">
+            </td>
+        </tr>
         <tr>
             <td>Name</td>
             <td>
