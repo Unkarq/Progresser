@@ -46,7 +46,8 @@ public class AppUser {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRole> userRoles = new HashSet<>();
 
-
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<AppUser> proteges = new HashSet<>();
 
 
 }

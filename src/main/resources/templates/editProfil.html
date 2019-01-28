@@ -1,0 +1,79 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <meta charset="UTF-8">
+    <th:block th:include="template :: scripts_header"/>
+    <title>Profil</title>
+</head>
+<body>
+<th:block th:include="template :: navigator"/>
+<!------ Include the above in your HEAD tag  ---------->
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="well well-sm">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive"/>
+                    </div>
+                    <div class="col-sm-6 col-md-8">
+                        <br/>
+                        <p>
+                        <div>
+                            <form th:action="@{/editProfil}" method="post" th:object="${editedUser}">
+                                <input type="hidden" th:field="*{idUserEdited}" th:value="*{idUserEdited}">
+                                <div>
+                                    Name:
+                                    <input type="text" th:field="*{nameUserEdited}"
+                                           th:value="*{nameUserEdited}">
+                                </div>
+                                <div>
+                                    Surname:
+                                    <input type="text" th:field="*{surnameUserEdited}"
+                                           th:value="*{surnameUserEdited}">
+                                </div>
+                                <div>
+
+                                </div>
+                                <div>
+                                    Email:
+                                    <input type="text" th:field="*{emailUserEdited}"
+                                           th:value="*{emailUserEdited}">
+                                </div>
+                                <div>
+                                        City:
+                                        <input type="text" th:field="*{cityUserEdited}"
+                                               th:value="*{cityUserEdited}">
+
+                                </div>
+                                <div>
+                                    Phonenumber:
+                                    <input type="text" th:field="*{phonenumberUserEdited}"
+                                           th:value="*{phonenumberUserEdited}">
+
+                                </div>
+
+                                <div>
+                                    <input type="submit">
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</form>
+<th:block th:include="template :: scripts_footer"/>
+</body>
+</html>

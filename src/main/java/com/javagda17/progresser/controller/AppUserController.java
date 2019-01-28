@@ -3,6 +3,7 @@ package com.javagda17.progresser.controller;
 import com.javagda17.progresser.model.AppUser;
 import com.javagda17.progresser.model.Gender;
 import com.javagda17.progresser.model.Specialization;
+import com.javagda17.progresser.model.dto.AppUserUpdateRequestDto;
 import com.javagda17.progresser.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -50,26 +51,32 @@ public class AppUserController {
     public String getProfilFormToEdid(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<AppUser> appUser = appUserService.findByUsername(user.getUsername());
-        AppUser optionaAppuser = appUser.get();
-        model.addAttribute("TypGender", Gender.values());
-        model.addAttribute("TypSpec", Specialization.values());
+        AppUser editedUser = appUser.get();
 
-        return "profil";
+        AppUserUpdateRequestDto dto = new AppUserUpdateRequestDto();
+        dto.setIdUserEdited(editedUser.getId());
+        dto.setNameUserEdited(editedUser.getName());
+        dto.setSurnameUserEdited(editedUser.getSurname());
 
+        dto.setEmailUserEdited(editedUser.getEmail());
+
+        dto.setCityUserEdited(editedUser.getCity());
+        dto.setPhonenumberUserEdited(editedUser.getPhoneNumber());
+
+        model.addAttribute("editedUser", dto);
+
+        return "editProfil";
     }
 
     @PostMapping("/editProfil")
-    public String updateProfil(Model model){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<AppUser> appUser = appUserService.findByUsername(user.getUsername());
-        AppUser optionaAppuser = appUser.get();
+    public String updateProfil(AppUserUpdateRequestDto dto) {
+        appUserService.updateProfil(dto);
 
-
-
+        return "redirect:/profil";
     }
 
 
-    }
+}
 
 
 

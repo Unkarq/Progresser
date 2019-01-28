@@ -91,20 +91,6 @@ public class DataInitializer implements
             createRole("ROLE_TRENER");
         }
     }
-//    private void checkAndLoadSpec() {
-//        if (!checkSpec("CALISTHENIC")) {
-//            createSpec("CALISTHENIC");
-//        }
-//        if (!checkSpec("FITNES")) {
-//            createSpec("FITNES");
-//        }
-//        if (!checkSpec("STRETCHING")) {
-//            createSpec("STRETCHING");
-//        }
-//        if (!checkSpec("WEIGHTLIFTING")) {
-//            createSpec("WEIGHTLIFTING");
-//        }
-//    }
 
 
     private void createRole(String role) {
@@ -118,15 +104,3 @@ public class DataInitializer implements
     }
 
 
-//
-//    private void createSpec(String spec) {
-//        Specialization createdSpec = new Specialization(null, spec);
-//        specializationRepository.saveAndFlush(createdSpec);
-//    }
-//
-//
-//      private boolean checkSpec(String spec) {
-//          return specializationRepository.findByName(spec).isPresent();
-//
-//      }
-//

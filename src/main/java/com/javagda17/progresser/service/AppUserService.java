@@ -4,6 +4,7 @@ import com.javagda17.progresser.model.AppUser;
 import com.javagda17.progresser.model.Gender;
 import com.javagda17.progresser.model.Specialization;
 import com.javagda17.progresser.model.UserRole;
+import com.javagda17.progresser.model.dto.AppUserUpdateRequestDto;
 import com.javagda17.progresser.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,7 +23,7 @@ public class AppUserService {
     private AppUserRepository appUserRepository;
 
     @Autowired
-  private UserRoleService userRoleService;
+    private UserRoleService userRoleService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -51,10 +52,10 @@ public class AppUserService {
         appUser.setGender(gender);
         appUser.setSpecialization(specialization);
         appUser.setCity(city);
-        if(trener==true){
+        if (trener == true) {
             appUser.getUserRoles().add((UserRole) userRoleService.getUserRole());
             appUser.getUserRoles().add((UserRole) userRoleService.getUserRole2());
-        }else {
+        } else {
 
             appUser.getUserRoles().add((UserRole) userRoleService.getUserRole());
 
@@ -63,38 +64,17 @@ public class AppUserService {
 
 
             appUserRepository.saveAndFlush(appUser);
-        }catch (ConstraintViolationException cve){
+        } catch (ConstraintViolationException cve) {
             return false;
         }
         return true;
     }
 
-    public Optional<AppUser> updateAppUser(AppUser appUser) {
-        Optional<AppUser> appUserOptional = getAppUserById(appUser.getId());
-        if (appUserOptional.isPresent()) {
-            AppUser appUserFromDB = appUserOptional.get();
-            appUserFromDB.setUsername(appUser.getUsername());
-            appUserFromDB.setName(appUser.getName());
-            appUserFromDB.setSurname(appUser.getSurname());
-            appUserFromDB.setEmail(appUser.getEmail());
-            appUserFromDB.setUserRoles(appUser.getUserRoles());
-            appUserFromDB.setCity(appUser.getCity());
-            appUserFromDB.setPhoneNumber(appUser.getPhoneNumber());
-            appUserFromDB.setGender(appUser.getGender());
-            appUserFromDB.setSpecialization(appUser.getSpecialization());
-
-
-            appUserRepository.saveAndFlush(appUserFromDB);
-        } return
-    }
 
     public Optional<AppUser> getAppUserById(Long id) {
         return appUserRepository.findById(id);
 
     }
-
-
-
 
 
     public List<AppUser> getAllUsers() {
@@ -107,13 +87,43 @@ public class AppUserService {
     }
 
 
-
-
-
     public Optional<AppUser> findByUsername(String username) {
         return appUserRepository.findByUsername(username);
     }
 
 
+    public void updateProfil(AppUserUpdateRequestDto dto) {
+        //wyciaganie uzytkownika z bazy
 
+        Optional<AppUser> user = appUserRepository.findById(dto.getIdUserEdited());
+        if (user.isPresent()) {
+            AppUser appUser = user.get();
+
+            // sprawdzamy czy wypelnil formularz
+            if (dto.getNameUserEdited() != null) {
+                appUser.setName(dto.getNameUserEdited());
+            }
+            if (dto.getSurnameUserEdited() != null) {
+                appUser.setSurname(dto.getSurnameUserEdited());
+            }
+
+            if (dto.getEmailUserEdited() != null) {
+                appUser.setEmail(dto.getEmailUserEdited());
+            }
+
+            if (dto.getCityUserEdited() != null) {
+                appUser.setCity(dto.getCityUserEdited());
+            }
+            if (dto.getPhonenumberUserEdited() != null) {
+                appUser.setPhoneNumber(dto.getPhonenumberUserEdited());
+            }
+            // zapis do bazy
+            appUserRepository.saveAndFlush(appUser);
+        }
+    }
+
+    public List<AppUser> getAllProteges() {
+        return appUserRepository.findByProteges();
+    }
 }
+
