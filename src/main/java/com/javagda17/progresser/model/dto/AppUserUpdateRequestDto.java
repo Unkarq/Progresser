@@ -1,6 +1,7 @@
 package com.javagda17.progresser.model.dto;
 
 import com.javagda17.progresser.model.Gender;
+import com.javagda17.progresser.model.ProtegeList;
 import com.javagda17.progresser.model.Specialization;
 import lombok.Data;
 
@@ -15,4 +16,6 @@ public class AppUserUpdateRequestDto {
     private String emailUserEdited;
     private String cityUserEdited;
     private String phonenumberUserEdited;
+    private String usernameFormDB;
+    private ProtegeList protegeListFromDB;
 }

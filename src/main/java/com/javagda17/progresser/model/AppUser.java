@@ -42,12 +42,12 @@ public class AppUser {
     private String phoneNumber;
 
 
-
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRole> userRoles = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private Set<AppUser> proteges = new HashSet<>();
+    @ManyToOne
+    private ProtegeList listaDoKtorejNaleze;
 
-
+    @OneToOne(mappedBy = "trener", fetch = FetchType.EAGER)
+    private ProtegeList podopieczni;
 }

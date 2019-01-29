@@ -11,6 +11,21 @@
 <main role="main" class="container">
     <h2>Trener Management Page</h2>
     <div class="row col-md-12">
+        <!-- Wyświetla liste uzytkownikow i filtracje po username -->
+        <form th:action="@{/trener/protegelist}" method="get"> <!-- http://localhost:8080/protegelist?username=? -->
+            <table>
+                <tr>
+                    <td>Dodaj Podopiecznego</td>
+                    <td>
+                        <input type="text" name="username">
+                    </td>
+                </tr>
+
+                <input type="submit" name="submit" value="Submit">
+                </td>
+                </tr>
+            </table>
+        </form>
         <div class="row col-md-12">
             <div class="col-md-1">Id</div>
             <div class="col-md-2">Username</div>
@@ -24,7 +39,7 @@
             <div class="col-md-2" th:text="${user.getSurname()}"></div>
             <div class="col-md-2" th:text="${user.getName()}"></div>
             <div class="col-md-2" th:text="${user.getGender()}"></div>
-
+            <!-- link na adres /trener/addprotege/{id} -->
 
         </div>
     </div>

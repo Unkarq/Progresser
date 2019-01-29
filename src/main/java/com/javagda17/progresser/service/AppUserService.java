@@ -1,12 +1,13 @@
 package com.javagda17.progresser.service;
 
-import com.javagda17.progresser.model.AppUser;
-import com.javagda17.progresser.model.Gender;
-import com.javagda17.progresser.model.Specialization;
-import com.javagda17.progresser.model.UserRole;
+import com.javagda17.progresser.model.*;
+import com.javagda17.progresser.model.dto.AppUserDto;
 import com.javagda17.progresser.model.dto.AppUserUpdateRequestDto;
 import com.javagda17.progresser.repository.AppUserRepository;
+import com.javagda17.progresser.repository.ProtegeListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,8 @@ import java.util.Optional;
 @Service
 public class AppUserService {
 
+    @Autowired
+    private ProtegeListRepository protegeListRepository;
 
     @Autowired
     private AppUserRepository appUserRepository;
@@ -52,18 +55,24 @@ public class AppUserService {
         appUser.setGender(gender);
         appUser.setSpecialization(specialization);
         appUser.setCity(city);
-        if (trener == true) {
+        if (trener) {
             appUser.getUserRoles().add((UserRole) userRoleService.getUserRole());
             appUser.getUserRoles().add((UserRole) userRoleService.getUserRole2());
+
+            ProtegeList protegeList = new ProtegeList();
+            protegeList = protegeListRepository.save(protegeList);
+            appUser.setPodopieczni(protegeList);
         } else {
-
             appUser.getUserRoles().add((UserRole) userRoleService.getUserRole());
-
         }
+
         try {
-
-
             appUserRepository.saveAndFlush(appUser);
+            if(trener){
+                ProtegeList protegeList = appUser.getPodopieczni();
+                protegeList.setTrener(appUser);
+                protegeListRepository.save(protegeList);
+            }
         } catch (ConstraintViolationException cve) {
             return false;
         }
@@ -123,7 +132,32 @@ public class AppUserService {
     }
 
     public List<AppUser> getAllProteges() {
-        return appUserRepository.findByProteges();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<AppUser> appUser = findByUsername(user.getUsername());
+        AppUser optionaAppuser = appUser.get();
+
+        return optionaAppuser.getPodopieczni().getProtegeList();
+    }
+
+
+    public void addProtegeToList(Long id) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<AppUser> appUser = findByUsername(user.getUsername());
+        AppUser trenerUser = appUser.get();
+
+        Optional<AppUser> appUserOptional = appUserRepository.findById(id);
+        AppUser protege = appUserOptional.get();
+
+        trenerUser.getPodopieczni().getProtegeList().add(protege);
+        protege.setListaDoKtorejNaleze(trenerUser.getPodopieczni());
+
+        protegeListRepository.save(trenerUser.getPodopieczni());
+        appUserRepository.save(trenerUser);
+        appUserRepository.save(protege);
+    }
+
+
+    public List<AppUser> searchUsername(String usernameSearched) {
+        return appUserRepository.findAllByUsernameContaining(usernameSearched);
     }
 }
-
